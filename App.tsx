@@ -16,6 +16,7 @@ const TRANSLATIONS = {
     loading: "Finding...",
     letterLabel: "Letter",
     langLabel: "Lang",
+    meaningLabel: "SIGNIFICANCE",
     stats: { total: "Total", unique: "Unique", frequent: "Top" },
     placeholder: "Discover the word starting with {letter}"
   },
@@ -26,6 +27,7 @@ const TRANSLATIONS = {
     loading: "Buscando...",
     letterLabel: "Letra",
     langLabel: "Idioma",
+    meaningLabel: "SIGNIFICADO",
     stats: { total: "Total", unique: "Únicas", frequent: "Top" },
     placeholder: "Descubre palabras con la {letter}"
   },
@@ -36,6 +38,7 @@ const TRANSLATIONS = {
     loading: "Ricerca...",
     letterLabel: "Lettera",
     langLabel: "Lingua",
+    meaningLabel: "SIGNIFICATO",
     stats: { total: "Totale", unique: "Uniche", frequent: "Top" },
     placeholder: "Scopri parole con la {letter}"
   }
@@ -101,7 +104,7 @@ const App: React.FC = () => {
         setIsLoading(false);
         
         // Cinematic Delay for Definition Reveal
-        setTimeout(() => setShowDefinition(true), 2000);
+        setTimeout(() => setShowDefinition(true), 1200);
       }, 2000);
 
     } catch (e) {
@@ -177,28 +180,38 @@ const App: React.FC = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               className="w-full flex flex-col items-center"
             >
-              <div className="bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-10 w-full shadow-2xl flex flex-col items-center text-center relative">
+              <div className="bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-8 md:p-10 w-full shadow-2xl flex flex-col items-center text-center relative overflow-hidden">
+                {/* Decorative background glow */}
+                <div className="absolute -top-24 -left-24 w-48 h-48 bg-cyan-500/10 blur-[80px] rounded-full" />
+                
                 <motion.div 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="mb-6 px-4 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.2em]"
+                  className="mb-6 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[11px] font-black uppercase tracking-[0.2em]"
                 >
                   {currentWord.partOfSpeech}
                 </motion.div>
                 
-                <h2 className="text-5xl font-black tracking-tighter text-white mb-4 break-words w-full">
+                <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-white mb-2 break-words w-full">
                   {currentWord.word}
                 </h2>
 
                 <AnimatePresence>
                   {showDefinition && (
                     <motion.div
-                      initial={{ opacity: 0, filter: 'blur(8px)', y: 10 }}
+                      initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
                       animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                      className="mt-8 pt-8 border-t border-white/5 w-full"
+                      className="mt-8 pt-8 border-t border-white/10 w-full text-left"
                     >
-                      <p className="text-sm md:text-base text-white/50 leading-relaxed font-medium">
-                        {currentWord.definition}
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="h-px flex-1 bg-gradient-to-r from-cyan-500/50 to-transparent"></span>
+                        <span className="text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em]">
+                          {t.meaningLabel}
+                        </span>
+                        <span className="h-px flex-1 bg-gradient-to-l from-cyan-500/50 to-transparent"></span>
+                      </div>
+                      <p className="text-lg md:text-xl text-white/90 leading-relaxed font-medium text-center md:text-left italic">
+                        "{currentWord.definition}"
                       </p>
                     </motion.div>
                   )}
@@ -216,10 +229,10 @@ const App: React.FC = () => {
             onClick={handleDiscover}
             disabled={isLoading}
             className={`
-              relative z-10 px-10 py-4 rounded-3xl font-black text-sm tracking-widest uppercase transition-all
+              relative z-10 px-12 py-5 rounded-[2rem] font-black text-sm tracking-[0.2em] uppercase transition-all
               ${isLoading 
                 ? 'bg-white/5 text-white/10' 
-                : 'bg-white text-slate-950 shadow-xl shadow-white/5 hover:bg-cyan-50'
+                : 'bg-white text-slate-950 shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/40'
               }
             `}
           >
@@ -230,9 +243,9 @@ const App: React.FC = () => {
             {!isLoading && (
               <motion.div 
                 initial={{ scale: 1, opacity: 0 }}
-                animate={{ scale: 1.4, opacity: [0, 0.4, 0] }}
+                animate={{ scale: 1.6, opacity: [0, 0.3, 0] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-                className="absolute inset-0 bg-white/20 rounded-3xl pointer-events-none"
+                className="absolute inset-0 bg-white/30 rounded-[2rem] pointer-events-none"
               />
             )}
           </AnimatePresence>
