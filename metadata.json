@@ -1,5 +1,6 @@
+
 {
-  "name": "P-Lexicon Modern Dictionary",
-  "description": "An AI-powered word discovery tool focused on words starting with the letter P (and others). Features dynamic falling animations, detailed word statistics, and a sleek glassmorphic interface.",
+  "name": "P-Léxico Moderno",
+  "description": "Una herramienta de descubrimiento de palabras de próxima generación. Totalmente privada, sin claves de API, optimizada para móviles y con animaciones cinematográficas.",
   "requestFramePermissions": []
 }
