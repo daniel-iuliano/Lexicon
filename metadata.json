@@ -1,0 +1,5 @@
+{
+  "name": "P-Lexicon Modern Dictionary",
+  "description": "An AI-powered word discovery tool focused on words starting with the letter P (and others). Features dynamic falling animations, detailed word statistics, and a sleek glassmorphic interface.",
+  "requestFramePermissions": []
+}
